@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 // make sure to use https
-export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}`
+export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=c24c2c7d`
 const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
@@ -38,7 +38,7 @@ const AppProvider = ({ children }) => {
         let page = 1;
         while (page <= 10) {
           const res = await fetch(
-            `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}&s=Batman&page=${page}`
+            `https://www.omdbapi.com/?apikey=c24c2c7d&s=Batman&page=${page}`
           );
           const movies = await res.json();
           movies.Search.forEach((movie) => moviesList.push(movie));
