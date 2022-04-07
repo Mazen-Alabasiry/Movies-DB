@@ -8,19 +8,30 @@ const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   //
+
+  /// At Searching
   const FetchMovies = async () => {
     setLoading(true)
     try {
 
-      let response = await fetch(`${API_ENDPOINT}` + `&s=${searchValue !== '' ? searchValue : 'batman'}`.split(' ').join('%20'));
-      let data = await response.json();
+      let moviesList = [];
+      let page = 1;
+      while (page <= 10) {
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=c24c2c7d&s=${`${searchValue !== '' ? searchValue : 'batman'}`.split(' ').join('+').trim()}&page=${page}`);
+        const movies = await res.json();
 
-      if (data.Response === "True") {
-        setMovies(data.Search)
-        setLoading(false)
-      } else {
-        setLoading(false)
+        if (movies.Response === 'True') {
+          movies.Search.forEach((movie) => moviesList.push(movie));
+          setMovies(moviesList);
+          setLoading(false)
+        } else {
+          setLoading(false)
+        }
+        page++;
+
       }
+
     } catch (error) {
       console.log(error.message)
     }
@@ -28,7 +39,9 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     FetchMovies();
   }, [searchValue])
-  ///
+
+  /// At First Render 
+
   useEffect(() => {
     setLoading(true)
 
@@ -36,7 +49,7 @@ const AppProvider = ({ children }) => {
     const getMovies = async () => {
       try {
         let page = 1;
-        while (page <= 10) {
+        while (page <= 20) {
           const res = await fetch(
             `https://www.omdbapi.com/?apikey=c24c2c7d&s=Batman&page=${page}`
           );
@@ -54,13 +67,18 @@ const AppProvider = ({ children }) => {
 
     getMovies();
   }, [])
-  //
+  ///
+
   const handelSearch = (e) => {
     setSearchValue(e.target.value)
   }
 
 
-  return <AppContext.Provider value={{ searchValue, handelSearch, movies, loading }}>{children}</AppContext.Provider>
+
+
+  return <AppContext.Provider value={{
+    searchValue, handelSearch, movies, loading
+  }}>{children}</AppContext.Provider>
 }
 // make sure use
 export const useGlobalContext = () => {
