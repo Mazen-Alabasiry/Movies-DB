@@ -42,7 +42,7 @@ const AppProvider = ({ children }) => {
     try {
 
       const res = await fetch(
-        `https://www.omdbapi.com/?apikey=160e88be}&s=Batman&page=${currentPageIndex}`
+        `https://www.omdbapi.com/?apikey=160e88be&s=Batman&page=${currentPageIndex}`
       );
       const movies = await res.json();
       setMovies(movies.Search)
