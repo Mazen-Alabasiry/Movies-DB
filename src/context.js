@@ -9,9 +9,9 @@ const AppProvider = ({ children }) => {
   const [functionality, setFunctionality] = useState('home')
   const [movies, setMovies] = useState([]);
   //
-  const [currentPageData, setCurrentPageData] = useState([])
+  const [currentPageData] = useState([])
   const [currentPageIndex, setCurrentPageIndex] = useState(1)
-  const [NumbersOfPages, setNumbersOfPages] = useState(10)
+  const [NumbersOfPages] = useState(10)
   //
 
 
