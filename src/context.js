@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 // make sure to use https
-export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}`
+export const API_ENDPOINT = `https://www.omdbapi.com/?apikey=160e88be`
 const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
@@ -42,7 +42,7 @@ const AppProvider = ({ children }) => {
     try {
 
       const res = await fetch(
-        `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API_KEY}&s=Batman&page=${currentPageIndex}`
+        `https://www.omdbapi.com/?apikey=160e88be}&s=Batman&page=${currentPageIndex}`
       );
       const movies = await res.json();
       setMovies(movies.Search)
